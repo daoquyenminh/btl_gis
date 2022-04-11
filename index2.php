@@ -43,7 +43,7 @@
             <td>
                 
                 <div id="info"></div>
-               <a href="http://localhost/btl/">All file</a><br>
+               <a href="http://localhost/btl/index2.php">Hiển thị vùng </a><br>
                <a href="./road.php">Hiển thị đường phố </a>
             </td>
         </tr>

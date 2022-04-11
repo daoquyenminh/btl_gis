@@ -11,7 +11,7 @@
     <style>
          .map,
         .righ-panel {
-            height: 86vh;
+            height: 83vh;
             width: 70vw;
             float: left;
         }
@@ -41,7 +41,7 @@
             </td>
             <td>
                 <div id="info"></div>
-               <a href="http://localhost/btl/index2.php">All file</a>
+               <a href="http://localhost/btl/index2.php">Hiển thị vùng</a>
             </td>
         </tr>
     </table>

@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="UTF-8"?><metadata>
+    <idinfo>
+        <citation>
+            <citeinfo>
+                <pubdate>20210910</pubdate>
+                <title>Roadway Functional Classification</title>
+                <geoform>vector digital data</geoform>
+            </citeinfo>
+        </citation>
+        <descript>
+            <abstract>Roadway Street Block by Functional Class. A single line, segmented at all intersections (alley, service road, drive, street, and driveway centerline types), representing each street in the District. They follow the general trend of the street and do not deviate due to parking lanes, turning lanes, etc. and contain address ranges for geocoding. The street GIS database includes five different street road types: Collector, Interstate, Local, Minor Arterial, Other Freeway and Expressway, Principal ArterialFor more information please visit DDOT's wiki page.</abstract>
+            <purpose>This data set was created to act as a basis for public and private institutions to improve their policy and decision making; promote economic development; and enhance the quality of life for residents and businesses.
+
+For more information please visit DDOT's wiki page at https://wiki.ddot.dc.gov/display/GIS/Roadway+Characteristics</purpose>
+            <supplinf>https://wiki.ddot.dc.gov/display/GIS/DDOT%27s+Transportation+Data+Products</supplinf>
+        </descript>
+        <status>
+            <update>Weekly</update>
+        </status>
+        <spdom>
+            <bounding>
+                <westbc>-77.116734</westbc>
+                <eastbc>-76.909401</eastbc>
+                <northbc>38.995255</northbc>
+                <southbc>38.793168</southbc>
+            </bounding>
+        </spdom>
+        <keywords>
+            <theme>
+                <themekt>None</themekt>
+                <themekey>transportation</themekey>
+                <themekey>Street Block</themekey>
+            </theme>
+            <place>
+                <placekt>None</placekt>
+                <placekey>washington d.c.</placekey>
+                <placekey>dc</placekey>
+                <placekey>district of columbia</placekey>
+            </place>
+        </keywords>
+        <accconst>None</accconst>
+        <useconst>This work is licensed under a Creative Commons Attribution 4.0 International License.</useconst>
+        <ptcontac>
+            <cntinfo>
+                <cntorgp>
+                    <cntorg>D.C. Office of the Chief Technology Officer</cntorg>
+                    <cntper>GIS Data Coordinator</cntper>
+                </cntorgp>
+                <cntaddr>
+                    <addrtype>mailing and physical</addrtype>
+                    <address>200 I Street SE, 5th Floor</address>
+                    <city>Washington</city>
+                    <state>DC</state>
+                    <postal>20003</postal>
+                    <country>US</country>
+                </cntaddr>
+                <cntfax>(202) 727-5660</cntfax>
+                <cntemail>dcgis@dc.gov</cntemail>
+                <hours>8:30 am - 5 pm</hours>
+            </cntinfo>
+        </ptcontac>
+        <datacred>DC District Department of Transportation</datacred>
+    </idinfo>
+    <dataqual>
+        <lineage>
+            <procstep>
+                <procdesc>Staff updated the dataset using the latest information</procdesc>
+                <procdate>20190726</procdate>
+                <proccont>
+                    <cntinfo>
+                        <cntorgp>
+                            <cntorg>D.C. Office of the Chief Technology Officer</cntorg>
+                            <cntper>GIS Data Coordinator</cntper>
+                        </cntorgp>
+                        <cntaddr>
+                            <addrtype>unknown</addrtype>
+                            <address>200 I Street SE, 5th Floor</address>
+                            <city>Washington</city>
+                            <state>DC</state>
+                            <postal>20003</postal>
+                            <country>US</country>
+                        </cntaddr>
+                        <cntfax>(202) 727-5660</cntfax>
+                        <cntemail>dcgis@dc.gov</cntemail>
+                        <hours>8:30 am - 5 pm</hours>
+                    </cntinfo>
+                </proccont>
+            </procstep>
+            <procstep>
+                <procdesc>added buslane_inbound, buslane_outbound, fromstreet, tostreet, ward_id, anc_id, and smd_id fields.</procdesc>
+                <procdate>20210312</procdate>
+            </procstep>
+            <procstep>
+                <procdesc>staff added SURFACT_TYPE, PARKINGZONE_RPP, PARKINGZONE_ROP fields.</procdesc>
+                <procdate>20210706</procdate>
+            </procstep>
+            <procstep>
+                <procdesc>Repointed to RoadwayBlockLn</procdesc>
+                <procdate>20210910</procdate>
+            </procstep>
+        </lineage>
+    </dataqual>
+    <spdoinfo>
+        <direct>Vector</direct>
+        <ptvctinf>
+            <sdtsterm>
+                <sdtstype>String</sdtstype>
+                <ptvctcnt>0</ptvctcnt>
+            </sdtsterm>
+        </ptvctinf>
+    </spdoinfo>
+    <eainfo>
+        <detailed>
+            <enttyp>
+                <enttypl>RoadwayBlockLn</enttypl>
+                <enttypd>Data attributes from DDOT Centerline dataset segmentation.</enttypd>
+                <enttypds>DDOT</enttypds>
+            </enttyp>
+            <attr>
+                <attrlabl>OBJECTID</attrlabl>
+                <attrdef>Internal feature number.</attrdef>
+                <attrdefs>Esri</attrdefs>
+                <attrdomv>
+                                        
+                    <udom>Sequential unique whole numbers that are automatically generated.</udom>
+                                    
+                </attrdomv>
+            </attr>
+            <attr>
+                <attrlabl>Shape</attrlabl>
+                <attrdef>Feature geometry.</attrdef>
+                <attrdefs>Esri</attrdefs>
+                <attrdomv>
+                                        
+                    <udom>Coordinates defining the features.</udom>
+                                    
+                </attrdomv>
+            </attr>
+            <attr>
+                <attrlabl>RouteID</attrlabl>
+                <attrdef>Unique ID of the route that this segment is on.</attrdef>
+                <attrdefs>DDOT</attrdefs>
+            </attr>
+            <attr>
+                <attrlabl>ROUTENAME</attrlabl>
+                <attrdef>Official name for the roadway segment.</attrdef>
+                <attrdefs>DC OCTO</attrdefs>
+            </attr>
+            <attr>
+                <attrlabl>ROADTYPE</attrlabl>
+                <attrdef>The type of road or path (Street, Alley, Driveway, etc.).</attrdef>
+                <attrdefs>DDOT</attrdefs>
+                <attrdomv>
+                                        
+                    <edom>
+                                                
+                        <edomv>1</edomv>
+                                                
+                        <edomvd>Street</edomvd>
+                                                
+                        <edomvds>DDOT</edomvds>
+                                            
+                    </edom>
+                                        
+                    <edom>
+                                                
+                        <edomv>2</edomv>
+                                                
+                        <edomvd>Service Road</edomvd>
+                                                
+                        <edomvds>DDOT</edomvds>
+                                            
+                    </edom>
+                                        
+                    <edom>
+                                                
+                        <edomv>3</edomv>
+                                                
+                        <edomvd>Ramp</edomvd>
+                                                
+                        <edomvds>DDOT</edomvds>
+                                            
+                    </edom>
+                                        
+                    <edom>
+                                                
+                        <edomv>4</edomv>
+                                                
+                        <edomvd>Alley</edomvd>
+                                                
+                        <edomvds>DDOT</edomvds>
+                                            
+                    </edom>
+                                        
+                    <edom>
+                                                
+                        <edomv>5</edomv>
+                                                
+                        <edomvd>Driveway</edomvd>
+                                                
+                        <edomvds>DDOT</edomvds>
+                                            
+                    </edom>
+                                        
+                    <edom>
+                                                
+                        <edomv>6</edomv>
+                                                
+                        <edomvd>Trail</edomvd>
+                                                
+                        <edomvds>DDOT</edomvds>
+                                            
+                    </edom>
+                                        
+                    <edom>
+                                                
+                        <edomv>7</edomv>
+                                                
+                        <edomvd>Walkway</edomvd>
+                                                
+                        <edomvds>DDOT</edomvds>
+                                            
+                    </edom>
+                                        
+                    <edom>
+                                                
+                        <edomv>8</edomv>
+                                                
+                        <edomvd>Streetcar</edomvd>
+                                                
+                        <edomvds>DDOT</edomvds>
+                                            
+                    </edom>
+                                    
+                </attrdomv>
+            </attr>
+            <attr>
+                <attrlabl>BLOCKKEY</attrlabl>
+                <attrdef>Primary key ID for the block. This is a GUID, which is derived from the BlockID value.</attrdef>
+                <attrdefs>DDOT</attrdefs>
+            </attr>
+            <attr>
+                <attrlabl>TOTALTRAVELLANES</attrlabl>
+                <attrdef>Contains a count of the total number of travel lanes for this segment. This includes turn lanes.</attrdef>
+                <attrdefs>DDOT</attrdefs>
+            </attr>
+            <attr>
+                <attrlabl>TOTALTRAVELLANEWIDTH</attrlabl>
+                <attrdef>The sum width (in feet) of the travel lanes on this segment.</attrdef>
+                <attrdefs>DDOT</attrdefs>
+            </attr>
+            <attr>
+                <attrlabl>TOTALTRAVELLANESINBOUND</attrlabl>
+                <attrdef>For more information on how DDOT defines Inbound or Outbound direction, please visit our cross-section documentation (https://wiki.ddot.dc.gov/display/public/GIS/Cross-section+Data#CrosssectionData-Direction).</attrdef>
+                <attrdefs>DDOT</attrdefs>
+            </attr>
+            <attr>
+                <attrlabl>TOTALTRAVELLANESOUTBOUND</attrlabl>
+                <attrdef>For more information on how DDOT defines Inbound or Outbound direction, please visit our cross-section documentation (https://wiki.ddot.dc.gov/display/public/GIS/Cross-section+Data#CrosssectionData-Direction).</attrdef>
+                <attrdefs>DDOT</attrdefs>
+            </attr>
+            <attr>
+                <attrlabl>SUMMARYDIRECTION</attrlabl>
+                <attrdef>This indicates if the roadway is two-way direction or if it only allows one way traffic. If one way, the inbound/outbound direction tells you which direction the traffic flows.</attrdef>
+                <attrdefs>DDOT</attrdefs>
+            </attr>
+            <attr>
+                <attrlabl>NHSCODE</attrlabl>
+                <attrdef>Internal ID code for NHS Type.</attrdef>
+                <attrdefs>DDOT</attrdefs>
+            </attr>
+            <attr>
+                <attrlabl>OWNERSHIP</attrlabl>
+                <attrdef>Roadway ownership code.</attrdef>
+                <attrdefs>DDOT</attrdefs>
+            </attr>
+            <attr>
+                <attrlabl>QUADRANT</attrlabl>
+                <attrdef>The addressing quadrant of DC (NE, NW, SE, SW) in which the segment is located.</attrdef>
+                <attrdefs>DC OCTO</attrdefs>
+            </attr>
+            <attr>
+                <attrlabl>SPEEDLIMITS_IB</attrlabl>
+                <attrdef>The posted speed limit for both inbound and outbound directions. Generally, these are R2-1 speed limit signs. **Note: DDOT assumes a default speed limit of 20MPH. All directional segments begin with that value until a speed limit sign is detected on the appropriate side.</attrdef>
+                <attrdefs>DDOT</attrdefs>
+            </attr>
+            <attr>
+                <attrlabl>SPEEDLIMITS_OB</attrlabl>
+                <attrdef>The posted speed limit for both inbound and outbound directions. Generally, these are R2-1 speed limit signs. **Note: DDOT assumes a default speed limit of 20MPH. All directional segments begin with that value until a speed limit sign is detected on the appropriate side.</attrdef>
+                <attrdefs>DDOT</attrdefs>
+            </attr>
+            <attr>
+                <attrlabl>STREETNAME</attrlabl>
+                <attrdef>Official name for the roadway segment.</attrdef>
+                <attrdefs>DC OCTO</attrdefs>
+            </attr>
+            <attr>
+                <attrlabl>STREETTYPE</attrlabl>
+                <attrdef>The street type/suffix for this street. (e.g. St, Rd, Ln, etc.)</attrdef>
+                <attrdefs>DDOT</attrdefs>
+            </attr>
+            <attr>
+                <attrlabl>BLOCK_NAME</attrlabl>
+                <attrdef>Master Address Repository (MAR) block name. </attrdef>
+                <attrdefs>DDOT</attrdefs>
+            </attr>
+            <attr>
+                <attrlabl>MAR_ID</attrlabl>
+                <attrdef>Master Address Repository (MAR) address identifier.</attrdef>
+                <attrdefs>DDOT</attrdefs>
+            </attr>
+            <attr>
+                <attrlabl>BlockID</attrlabl>
+                <attrdef>Key ID for the block; it is a concatenation of the RouteID, FromIntersectionID and ToIntersectionID.</attrdef>
+                <attrdefs>DDOT</attrdefs>
+            </attr>
+            <attr>
+                <attrlabl>DCFUNCTIONALCLASS</attrlabl>
+                <attrdef>Functional Classification codes, using DDOT's coded values.</attrdef>
+                <attrdefs>DDOT</attrdefs>
+                <attrdomv>
+                                        
+                    <edom>
+                                                
+                        <edomv>11</edomv>
+                                                
+                        <edomvd>Interstate</edomvd>
+                                                
+                        <edomvds>DDOT</edomvds>
+                                            
+                    </edom>
+                                        
+                    <edom>
+                                                
+                        <edomv>12</edomv>
+                                                
+                        <edomvd>Other Freeway and Expressway</edomvd>
+                                                
+                        <edomvds>DDOT</edomvds>
+                                            
+                    </edom>
+                                        
+                    <edom>
+                                                
+                        <edomv>14</edomv>
+                                                
+                        <edomvd>Principal/Primary Arterial</edomvd>
+                                                
+                        <edomvds>DDOT</edomvds>
+                                            
+                    </edom>
+                                        
+                    <edom>
+                                                
+                        <edomv>16</edomv>
+                                                
+                        <edomvd>Minor Arterial</edomvd>
+                                                
+                        <edomvds>DDOT</edomvds>
+                                            
+                    </edom>
+                                        
+                    <edom>
+                                                
+                        <edomv>17</edomv>
+                                                
+                        <edomvd>Collector</edomvd>
+                                                
+                        <edomvds>DDOT</edomvds>
+                                            
+                    </edom>
+                                        
+                    <edom>
+                                                
+                        <edomv>19</edomv>
+                                                
+                        <edomvd>Local</edomvd>
+                                                
+                        <edomvds>DDOT</edomvds>
+                                            
+                    </edom>
+                                    
+                </attrdomv>
+            </attr>
+            <attr>
+                <attrlabl>NHSTYPE</attrlabl>
+                <attrdef>Type of NHS Segment.</attrdef>
+                <attrdefs>DDOT</attrdefs>
+            </attr>
+            <attr>
+                <attrlabl>WARD_ID</attrlabl>
+                <attrdef>Contains text value for DC Ward for the centerpoint of this segment.
+
+- '99' means this falls outside of DC
+- &lt;Null&gt; indicates a geometry error</attrdef>
+                <attrdefs>DDOT</attrdefs>
+            </attr>
+            <attr>
+                <attrlabl>ANC_ID</attrlabl>
+                <attrdef>Contains text value for DC's ANC for the centerpoint of this segment.
+
+- '99' means this falls outside of DC
+- &lt;Null&gt; indicates a geometry error</attrdef>
+                <attrdefs>DDOT</attrdefs>
+            </attr>
+            <attr>
+                <attrlabl>SMD_ID</attrlabl>
+                <attrdef>Contains text value for DC SMD for the centerpoint of this segment.
+
+- '99' means this falls outside of DC
+- &lt;Null&gt; indicates a geometry error</attrdef>
+                <attrdefs>DDOT</attrdefs>
+            </attr>
+            <attr>
+                <attrlabl>SE_ANNO_CAD_DATA</attrlabl>
+                <attrdef>Last time and date the information was updated.</attrdef>
+                <attrdefs>DC OCTO</attrdefs>
+            </attr>
+            <attr>
+                <attrlabl>SHAPE_Length</attrlabl>
+                <attrdef>Length of feature in internal units.</attrdef>
+                <attrdefs>Esri</attrdefs>
+                <attrdomv>
+                                        
+                    <udom>Positive real numbers that are automatically generated.</udom>
+                                    
+                </attrdomv>
+            </attr>
+            <attr>
+                <attrlabl>SURFACE_TYPE</attrlabl>
+                <attrdef>Surface Type</attrdef>
+                <attrdefs>DDOT</attrdefs>
+                <attrdomv>
+                                        
+                    <edom>
+                                                
+                        <edomv>1</edomv>
+                                                
+                        <edomvd>Unpaved</edomvd>
+                                                
+                        <edomvds>DDOT</edomvds>
+                                            
+                    </edom>
+                                        
+                    <edom>
+                                                
+                        <edomv>2</edomv>
+                                                
+                        <edomvd>Bituminous</edomvd>
+                                                
+                        <edomvds>DDOT</edomvds>
+                                            
+                    </edom>
+                                        
+                    <edom>
+                                                
+                        <edomv>3</edomv>
+                                                
+                        <edomvd>JPCP – Jointed Plain Concrete Pavement</edomvd>
+                                                
+                        <edomvds>DDOT</edomvds>
+                                            
+                    </edom>
+                                        
+                    <edom>
+                                                
+                        <edomv>4</edomv>
+                                                
+                        <edomvd>JRCP – Jointed Reinforced Concrete Pavement</edomvd>
+                                                
+                        <edomvds>DDOT</edomvds>
+                                            
+                    </edom>
+                                        
+                    <edom>
+                                                
+                        <edomv>5</edomv>
+                                                
+                        <edomvd>CRCP – Continuously Reinforced Concrete Pavement</edomvd>
+                                                
+                        <edomvds>DDOT</edomvds>
+                                            
+                    </edom>
+                                        
+                    <edom>
+                                                
+                        <edomv>6</edomv>
+                                                
+                        <edomvd>Asphalt-Concrete (AC) Overlay over Existing AC Pavement</edomvd>
+                                                
+                        <edomvds>DDOT</edomvds>
+                                            
+                    </edom>
+                                        
+                    <edom>
+                                                
+                        <edomv>7</edomv>
+                                                
+                        <edomvd>AC Overlay over Existing Jointed Concrete Pavement</edomvd>
+                                                
+                        <edomvds>DDOT</edomvds>
+                                            
+                    </edom>
+                                        
+                    <edom>
+                                                
+                        <edomv>8</edomv>
+                                                
+                        <edomvd>AC (Bituminous Overlay over Existing CRCP)</edomvd>
+                                                
+                        <edomvds>DDOT</edomvds>
+                                            
+                    </edom>
+                                        
+                    <edom>
+                                                
+                        <edomv>9</edomv>
+                                                
+                        <edomvd>Unbonded Jointed Concrete Overlay on PCC Pavement</edomvd>
+                                                
+                        <edomvds>DDOT</edomvds>
+                                            
+                    </edom>
+                                        
+                    <edom>
+                                                
+                        <edomv>10</edomv>
+                                                
+                        <edomvd>Bonded PCC Overlay on PCC Pavement</edomvd>
+                                                
+                        <edomvds>DDOT</edomvds>
+                                            
+                    </edom>
+                                        
+                    <edom>
+                                                
+                        <edomv>11</edomv>
+                                                
+                        <edomvd>Other (includes “whitetopping”)</edomvd>
+                                                
+                        <edomvds>DDOT</edomvds>
+                                            
+                    </edom>
+                                        
+                    <edom>
+                                                
+                        <edomv>12</edomv>
+                                                
+                        <edomvd>Brick</edomvd>
+                                                
+                        <edomvds>DDOT</edomvds>
+                                            
+                    </edom>
+                                        
+                    <edom>
+                                                
+                        <edomv>13</edomv>
+                                                
+                        <edomvd>Gravel</edomvd>
+                                                
+                        <edomvds>DDOT</edomvds>
+                                            
+                    </edom>
+                                    
+                </attrdomv>
+            </attr>
+        </detailed>
+    </eainfo>
+    <distinfo>
+        <distrib>
+            <cntinfo>
+                <cntorgp>
+                    <cntorg>D.C. Office of the Chief Technology Officer</cntorg>
+                    <cntper>GIS Data Coordinator</cntper>
+                </cntorgp>
+                <cntaddr>
+                    <addrtype>mailing and physical</addrtype>
+                    <address>200 I Street SE, 5th Floor</address>
+                    <city>Washington</city>
+                    <state>DC</state>
+                    <postal>20003</postal>
+                    <country>US</country>
+                </cntaddr>
+                <cntfax>(202) 727-5660</cntfax>
+                <cntemail>dcgis@dc.gov</cntemail>
+                <hours>8:30 am - 5 pm</hours>
+            </cntinfo>
+        </distrib>
+        <distliab>See access and use constraints information.</distliab>
+        <custom>DC datasets can be downloaded from "http://opendata.dc.gov".</custom>
+    </distinfo>
+    <metainfo>
+        <metd>20210911</metd>
+        <metc>
+            <cntinfo>
+                <cntorgp>
+                    <cntorg>D.C. Office of the Chief Technology Officer</cntorg>
+                    <cntper>GIS Data Coordinator</cntper>
+                </cntorgp>
+                <cntaddr>
+                    <addrtype>mailing and physical</addrtype>
+                    <address>200 I Street SE, 5th Floor</address>
+                    <city>Washington</city>
+                    <state>DC</state>
+                    <postal>20003</postal>
+                    <country>US</country>
+                </cntaddr>
+                <cntfax>(202) 727-5660</cntfax>
+                <cntemail>dcgis@dc.gov</cntemail>
+                <hours>8:30 am - 5 pm</hours>
+            </cntinfo>
+        </metc>
+        <metstdn>FGDC Content Standard for Digital Geospatial Metadata</metstdn>
+        <metstdv>FGDC-STD-001-1998</metstdv>
+        <mettc>local time</mettc>
+    </metainfo>
+</metadata>
