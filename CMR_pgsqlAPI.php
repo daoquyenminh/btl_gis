@@ -195,6 +195,6 @@
             return $resFin;
         }
         else
-            return "null";
+            return "Không có dữ liệu";
     }
 ?>

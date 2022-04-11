@@ -3,16 +3,16 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Hiển thị dân cư</title>
+    <title>road</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css" />
     <script src="https://openlayers.org/en/v4.6.5/build/ol.js" type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js" type="text/javascript"></script>
     <style>
-        .map,
+         .map,
         .righ-panel {
-            height: 98vh;
-            width: 80vw;
+            height: 86vh;
+            width: 70vw;
             float: left;
         }
 
@@ -20,11 +20,19 @@
             border: 1px solid #000;
             
         }
+        a{
+            text-decoration : none ;
+            color: green;
+        }
+        a:hover {
+            color: red;
+        }
         
     </style>
 </head>
 
 <body onload="initialize_map();">
+<h1>Hiển thị các con đường thuộc thành phố Washington</h1>
     <table>
         <tr>
             <td>
@@ -33,11 +41,11 @@
             </td>
             <td>
                 <div id="info"></div>
-               <a href="http://localhost/btl/">All file</a>
+               <a href="http://localhost/btl/index2.php">All file</a>
             </td>
         </tr>
     </table>
-    <?php include 'CMR_pgsqlAPI.php' ?>
+    <?php include 'CMR_pgsqlAPIRoad.php' ?>
     <script>
         //$("#document").ready(function () {
         var format = 'image/png';
@@ -66,7 +74,7 @@
                         'FORMAT': format,
                         'VERSION': '1.1.0',
                         STYLES: '',
-                        LAYERS: 'wards_from_2012',
+                        LAYERS: 'roadway_functional_classification',
                     }
                 })
             });
@@ -86,12 +94,9 @@
             var styles = {
                 'MultiPolygon': new ol.style.Style({
                     fill: new ol.style.Fill({
-                        color: 'orange'
+                        color: 'green'
                     }),
-                    stroke: new ol.style.Stroke({
-                        color: 'red', // gốc là yellow
-                        width: 2
-                    })
+                    
                 })
             };
             var styleFunction = function(feature) {
@@ -149,7 +154,7 @@
                 //*
                 $.ajax({
                     type: "POST",
-                    url: "CMR_pgsqlAPI.php",
+                    url: "CMR_pgsqlAPIRoad.php",
                     //dataType: 'json',
                     //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
                     data: {
@@ -201,7 +206,7 @@
                 //*
                 $.ajax({
                     type: "POST",
-                    url: "CMR_pgsqlAPI.php",
+                    url: "CMR_pgsqlAPIRoad.php",
                     //dataType: 'json',
                     data: {
                         functionname: 'getGeoCMRToAjax',
@@ -218,6 +223,7 @@
             });
         };
         //});
+                        
     </script>
 </body>
 

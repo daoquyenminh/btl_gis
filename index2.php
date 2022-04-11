@@ -3,33 +3,54 @@
 
 <head>
     <meta charset="utf-8">
-    <title>OpenStreetMap &amp; OpenLayers - Marker Example</title>
+    <title>Hiển thị dân cư</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    
-        <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css" />
-        <script src="https://openlayers.org/en/v4.6.5/build/ol.js" type="text/javascript"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js" type="text/javascript"></script>
-    
+    <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css" />
+    <script src="https://openlayers.org/en/v4.6.5/build/ol.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js" type="text/javascript"></script>
+    <style>
+        .map,
+        .righ-panel {
+            height: 86vh;
+            width: 70vw;
+            float: left;
+        }
 
+        .map {
+            border: 1px solid #000;
+            
+        }
+        a{
+            text-decoration : none ;
+            color: green;
+        }
+        a:hover {
+            color: red;
+        }
+        
+        
+    </style>
 </head>
 
 <body onload="initialize_map();">
+<h1>Hiển thị dữ liệu của các phường thuộc thành phố Washington</h1>
     <table>
         <tr>
             <td>
-                <div id="map" style="width: 80vw; height: 100vh;"></div>
+                <div id="map" class="map"></div>
+                <!--<div id="map" style="width: 80vw; height: 100vh;"></div>-->
             </td>
             <td>
-                <button>Button</button>
-                <a href="http://localhost/btl/">All file</a>
+                
+                <div id="info"></div>
+               <a href="http://localhost/btl/">All file</a><br>
+               <a href="./road.php">Hiển thị đường phố </a>
             </td>
         </tr>
     </table>
     <?php include 'CMR_pgsqlAPI.php' ?>
-    <?php
-
-    ?>
     <script>
+        //$("#document").ready(function () {
         var format = 'image/png';
         var map;
         var minX = -77.120849609375;
@@ -56,7 +77,7 @@
                         'FORMAT': format,
                         'VERSION': '1.1.0',
                         STYLES: '',
-                        LAYERS: 'census2010',
+                        LAYERS: 'wards_from_2012',
                     }
                 })
             });
@@ -76,10 +97,10 @@
             var styles = {
                 'MultiPolygon': new ol.style.Style({
                     fill: new ol.style.Fill({
-                        color: 'blue'
+                        color: '#a5f2d6'
                     }),
                     stroke: new ol.style.Stroke({
-                        color: 'red', // gốc là yellow
+                        color: 'yellow', // gốc là yellow
                         width: 2
                     })
                 })
@@ -123,6 +144,38 @@
                 map.addLayer(vectorLayer);
             }
 
+            function displayObjInfo(result, coordinate) {
+                //alert("result: " + result);
+                //alert("coordinate des: " + coordinate);
+                $("#info").html(result);
+            }
+            map.on('singleclick', function(evt) {
+                //alert("coordinate org: " + evt.coordinate);
+                //var myPoint = 'POINT(12,5)';
+                var lonlat = ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
+                var lon = lonlat[0];
+                var lat = lonlat[1];
+                var myPoint = 'POINT(' + lon + ' ' + lat + ')';
+                //alert("myPoint: " + myPoint);
+                //*
+                $.ajax({
+                    type: "POST",
+                    url: "CMR_pgsqlAPI.php",
+                    //dataType: 'json',
+                    //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
+                    data: {
+                        functionname: 'getInfoCMRToAjax',
+                        paPoint: myPoint
+                    },
+                    success: function(result, status, erro) {
+                        displayObjInfo(result, evt.coordinate);
+                    },
+                    error: function(req, status, error) {
+                        alert(req + " " + status + " " + error);
+                    }
+                });
+                //*/
+            });
             function highLightGeoJsonObj(paObjJson) {
                 var vectorSource = new ol.source.Vector({
                     features: (new ol.format.GeoJSON()).readFeatures(paObjJson, {
@@ -175,6 +228,8 @@
                 //*/
             });
         };
+        //});
+                        
     </script>
 </body>
 

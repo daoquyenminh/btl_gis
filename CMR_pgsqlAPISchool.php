@@ -20,7 +20,7 @@
     function initDB()
     {
         // Kết nối CSDL
-        $paPDO = new PDO('pgsql:host=localhost;dbname=btl;port=5432', 'postgres', '1');
+        $paPDO = new PDO('pgsql:host=localhost;dbname=btl;port=5432','postgres','1');
         return $paPDO;
     }
     function query($paPDO, $paSQLStr)
@@ -54,7 +54,7 @@
     }
     function example1($paPDO)
     {
-        $mySQLStr = "SELECT * FROM \"roadway_functional_classification\"";
+        $mySQLStr = "SELECT * FROM \"schools\"";
         $result = query($paPDO, $mySQLStr);
 
         if ($result != null)
@@ -73,7 +73,7 @@
     }
     function example2($paPDO)
     {
-        $mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"roadway_functional_classification\"";
+        $mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"schools\"";
         $result = query($paPDO, $mySQLStr);
         
         if ($result != null)
@@ -97,8 +97,8 @@
         $paPoint = str_replace(',', ' ', $paPoint);
         echo $paPoint;
         echo "<br>";
-        //$mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"cmr_adm1\" where ST_Within('SRID=4326;POINT(12 5)'::geometry,geom)";
-        $mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"roadway_functional_classification\" where ST_Within('SRID=".$paSRID.";".$paPoint."'::geometry,geom)";
+        
+        $mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"schools\" where ST_Within('SRID=".$paSRID.";".$paPoint."'::geometry,geom)";
         echo $mySQLStr;
         echo "<br><br>";
         $result = query($paPDO, $mySQLStr);
@@ -124,21 +124,21 @@
         $paPoint = str_replace(',', ' ', $paPoint);
         //echo $paPoint;
         //echo "<br>";
-        //$mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"cmr_adm1\" where ST_Within('SRID=4326;POINT(12 5)'::geometry,geom)";
-        $mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"roadway_functional_classification\" where ST_Within('SRID=".$paSRID.";".$paPoint."'::geometry,geom)";
+        //$mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"CMR_adm1\" where ST_Within('SRID=4326;POINT(12 5)'::geometry,geom)";
+        $mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"schools\" where ST_Within('SRID=".$paSRID.";".$paPoint."'::geometry,geom)";
         //echo $mySQLStr;
         //echo "<br><br>";
         $result = query($paPDO, $mySQLStr);
         
         if ($result != null)
         {
-            // Lặp kết quả
+            // Lặp kết quả 
             foreach ($result as $item){
                 return $item['geo'];
             }
         }
         else
-            return "null 1";
+            return "Không có dữ liệU";
     }
     function getGeoCMRToAjax($paPDO,$paSRID,$paPoint)
     {
@@ -147,8 +147,8 @@
         $paPoint = str_replace(',', ' ', $paPoint);
         //echo $paPoint;
         //echo "<br>";
-        //$mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"cmr_adm1\" where ST_Within('SRID=4326;POINT(12 5)'::geometry,geom)";
-        $mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"roadway_functional_classification\" where ST_Within('SRID=".$paSRID.";".$paPoint."'::geometry,geom)";
+        //$mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"census2010\" where ST_Within('SRID=4326;POINT(12 5)'::geometry,geom)";
+        $mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"schools\" where ST_Within('SRID=".$paSRID.";".$paPoint."'::geometry,geom)";
         //echo $mySQLStr;
         //echo "<br><br>";
         $result = query($paPDO, $mySQLStr);
@@ -161,28 +161,32 @@
             }
         }
         else
-            return "null 2";
+            return "Không có dữ liệU";
     }
     function getInfoCMRToAjax($paPDO,$paSRID,$paPoint)
     {
+    
         $paPoint = str_replace(',', ' ', $paPoint);
-        $mySQLStr = "SELECT streetname, ward_id, anc_id from \"roadway_functional_classification\" where ST_Within('SRID=".$paSRID.";".$paPoint."'::geometry,geom)";
+        
+        $mySQLStr = "SELECT name from \"schools\" where ST_Within('SRID=".$paSRID.";".$paPoint."'::geometry,geom)";
+        //echo $mySQLStr;
+        //echo "<br><br>";
         $result = query($paPDO, $mySQLStr);
         
         if ($result != null)
         {
-            $resFin = '<table>';
+            $resFin = '<table><thread>';
             // Lặp kết quả
             foreach ($result as $item){
-                $resFin = $resFin.'<tr><td>id_1: '.$item['ward_id'].'</td></tr>';
-                $resFin = $resFin.'<tr><td>Chu vi: '.$item['streetname'].'</td></tr>';
-                $resFin = $resFin.'<tr><td>Diện tích: '.$item['anc_id'].'</td></tr>';
-                break;
+                
+                $resFin = $resFin.'<tr><td><b>Tên Phường:</b> '.$item['rep_name'].'</td></tr>';
+                
+            
             }
             $resFin = $resFin.'</table>';
             return $resFin;
         }
         else
-            return "null 3";
+            return "Không có dữ liệu";
     }
 ?>
