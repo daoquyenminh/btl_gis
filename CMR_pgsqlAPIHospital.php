@@ -20,7 +20,7 @@
     function initDB()
     {
         // Kết nối CSDL
-        $paPDO = new PDO('pgsql:host=localhost;dbname=btl;port=5432','postgres','1');
+        $paPDO = new PDO('pgsql:host=localhost; dbname=btl; port=5432','postgres','1');
         return $paPDO;
     }
     function query($paPDO, $paSQLStr)
@@ -54,7 +54,7 @@
     }
     function example1($paPDO)
     {
-        $mySQLStr = "SELECT * FROM \"schools\"";
+        $mySQLStr = "SELECT * FROM \"hospitals\"";
         $result = query($paPDO, $mySQLStr);
 
         if ($result != null)
@@ -73,7 +73,7 @@
     }
     function example2($paPDO)
     {
-        $mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"schools\"";
+        $mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"hospitals\"";
         $result = query($paPDO, $mySQLStr);
         
         if ($result != null)
@@ -98,7 +98,7 @@
         echo $paPoint;
         echo "<br>";
         
-        $mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"schools\" where ST_Within('SRID=".$paSRID.";".$paPoint."'::geometry,geom)";
+        $mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"hospitals\" where ST_Within('SRID=".$paSRID.";".$paPoint."'::geometry,geom)";
         echo $mySQLStr;
         echo "<br><br>";
         $result = query($paPDO, $mySQLStr);
@@ -119,38 +119,27 @@
     }
     function getResult($paPDO,$paSRID,$paPoint)
     {
-        //echo $paPoint;
-        //echo "<br>";
         $paPoint = str_replace(',', ' ', $paPoint);
-        //echo $paPoint;
-        //echo "<br>";
-        //$mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"CMR_adm1\" where ST_Within('SRID=4326;POINT(12 5)'::geometry,geom)";
-        $mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"schools\" where ST_Within('SRID=".$paSRID.";".$paPoint."'::geometry,geom)";
+        
+        $mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"hospitals\" where ST_Within('SRID=".$paSRID.";".$paPoint."'::geometry,geom)";
         //echo $mySQLStr;
         //echo "<br><br>";
         $result = query($paPDO, $mySQLStr);
         
         if ($result != null)
         {
-            // Lặp kết quả 
+            // Lặp kết quả
             foreach ($result as $item){
                 return $item['geo'];
             }
         }
         else
-            return "Không có dữ liệU";
+            return "null";
     }
     function getGeoCMRToAjax($paPDO,$paSRID,$paPoint)
     {
-        //echo $paPoint;
-        //echo "<br>";
         $paPoint = str_replace(',', ' ', $paPoint);
-        //echo $paPoint;
-        //echo "<br>";
-        //$mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"census2010\" where ST_Within('SRID=4326;POINT(12 5)'::geometry,geom)";
-        $mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"schools\" where ST_Within('SRID=".$paSRID.";".$paPoint."'::geometry,geom)";
-        //echo $mySQLStr;
-        //echo "<br><br>";
+        $mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"hospitals\" where ST_Within('SRID=".$paSRID.";".$paPoint."'::geometry,geom)";
         $result = query($paPDO, $mySQLStr);
         
         if ($result != null)
@@ -161,32 +150,35 @@
             }
         }
         else
-            return "Không có dữ liệU";
+            return "null";
     }
     function getInfoCMRToAjax($paPDO,$paSRID,$paPoint)
     {
-    
+        //echo $paPoint;
+        //echo "<br>";
         $paPoint = str_replace(',', ' ', $paPoint);
+        //echo $paPoint;
+        //echo "<br>";
+        //$mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"hospitals\" where ST_Within('SRID=4326;POINT(12 5)'::geometry,geom)";
+        $mySQLStr = "SELECT ST_AsGeoJson(geom) as geo from \"hospitals\" where ST_Within('SRID=".$paSRID.";".$paPoint."'::geometry,geom)";
+        // $mySQLStr = "SELECT name, address, bed_count from \"hospitals\" where ST_Within('SRID=".$paSRID.";".$paPoint."'::geometry,geom)";
         
-        $mySQLStr = "SELECT name from \"schools\" where ST_Within('SRID=".$paSRID.";".$paPoint."'::geometry,geom)";
-        //echo $mySQLStr;
-        //echo "<br><br>";
         $result = query($paPDO, $mySQLStr);
         
         if ($result != null)
         {
-            $resFin = '<table><thread>';
+            $resFin = '<table>';
             // Lặp kết quả
             foreach ($result as $item){
-                
-                $resFin = $resFin.'<tr><td><b>Tên Phường:</b> '.$item['rep_name'].'</td></tr>';
-                
-            
+                $resFin = $resFin.'<tr><td>id_1: '.$item['name'].'</td></tr>';
+                $resFin = $resFin.'<tr><td>Chu vi: '.$item['address'].'</td></tr>';
+                $resFin = $resFin.'<tr><td>Diện tích: '.$item['bed_count'].'</td></tr>';
+                break;
             }
             $resFin = $resFin.'</table>';
             return $resFin;
         }
         else
-            return "Không có dữ liệu";
+            return "null 3";
     }
 ?>

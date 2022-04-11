@@ -3,35 +3,36 @@
 
 <head>
     <meta charset="utf-8">
-    <title>OpenStreetMap &amp; OpenLayers - Marker Example</title>
+    <title>Các bệnh viện trong khu vực thành phố</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
-    
-        <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css" />
-        <script src="https://openlayers.org/en/v4.6.5/build/ol.js" type="text/javascript"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css" />
+    <script src="https://openlayers.org/en/v4.6.5/build/ol.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js" type="text/javascript"></script>
     <style>
-        /*
-            .map, .righ-panel {
-                height: 500px;
-                width: 80%;
-                float: left;
-            }
-            */
         .map,
         .righ-panel {
-            height: 98vh;
-            width: 80vw;
+            height: 86vh;
+            width: 70vw;
             float: left;
         }
 
         .map {
             border: 1px solid #000;
+            
         }
+        a{
+            text-decoration : none ;
+            color: green;
+        }
+        a:hover {
+            color: red;
+        }
+        
     </style>
 </head>
 
 <body onload="initialize_map();">
+<h1>Hiển thị dữ liệu của các bệnh viện thuộc thành phố Washington</h1>
     <table>
         <tr>
             <td>
@@ -40,10 +41,13 @@
             </td>
             <td>
                 <div id="info"></div>
+                <a href="http://localhost/btl/index.php">Hiển thị vùng </a><br>
+               <a href="http://localhost/btl/road.php">Hiển thị đường phố </a><br>
+               <a href="http://localhost/btl/hospital.php">Hiển thị bệnh viện </a>
             </td>
         </tr>
     </table>
-    <?php include 'CMR_pgsqlAPISchool.php' ?>
+    <?php include 'CMR_pgsqlAPIHospital.php' ?>
     <script>
         //$("#document").ready(function () {
         var format = 'image/png';
@@ -67,7 +71,7 @@
             var layerCMR_adm1 = new ol.layer.Image({
                 source: new ol.source.ImageWMS({
                     ratio: 1,
-                    url: 'http://localhost:8080/geoserver/thucthanh/wms?',
+                    url: 'http://localhost:8080/geoserver/btl/wms?',
                     params: {
                         'FORMAT': format,
                         'VERSION': '1.1.0',
@@ -91,10 +95,10 @@
 
             var styles = {
                 'MultiPolygon': new ol.style.Style({
-                    stroke: new ol.style.Stroke({
-                        color: 'yellow',
-                        width: 2
-                    })
+                    fill: new ol.style.Fill({
+                        color: 'green'
+                    }),
+                    
                 })
             };
             var styleFunction = function(feature) {
@@ -152,7 +156,7 @@
                 //*
                 $.ajax({
                     type: "POST",
-                    url: "CMR_pgsqlAPISchool.php",
+                    url: "CMR_pgsqlAPIIHospital.php",
                     //dataType: 'json',
                     //data: {functionname: 'reponseGeoToAjax', paPoint: myPoint},
                     data: {
@@ -168,8 +172,60 @@
                 });
                 //*/
             });
+            function highLightGeoJsonObj(paObjJson) {
+                var vectorSource = new ol.source.Vector({
+                    features: (new ol.format.GeoJSON()).readFeatures(paObjJson, {
+                        dataProjection: 'EPSG:4326',
+                        featureProjection: 'EPSG:3857'
+                    })
+                });
+                vectorLayer.setSource(vectorSource);
+                /*
+                var vectorLayer = new ol.layer.Vector({
+                    source: vectorSource
+                });
+                map.addLayer(vectorLayer);
+                */
+            }
+
+            function highLightObj(result) {
+                //alert("result: " + result);
+                var strObjJson = createJsonObj(result);
+                //alert(strObjJson);
+                var objJson = JSON.parse(strObjJson);
+                //alert(JSON.stringify(objJson));
+                //drawGeoJsonObj(objJson);
+                highLightGeoJsonObj(objJson);
+            }
+            map.on('singleclick', function(evt) {
+                //alert("coordinate: " + evt.coordinate);
+                //var myPoint = 'POINT(12,5)';
+                var lonlat = ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
+                var lon = lonlat[0];
+                var lat = lonlat[1];
+                var myPoint = 'POINT(' + lon + ' ' + lat + ')';
+                //alert("myPoint: " + myPoint);
+                //*
+                $.ajax({
+                    type: "POST",
+                    url: "CMR_pgsqlAPIIHospital.php",
+                    //dataType: 'json',
+                    data: {
+                        functionname: 'getGeoCMRToAjax',
+                        paPoint: myPoint
+                    },
+                    success: function(result, status, erro) {
+                        highLightObj(result);
+                    },
+                    error: function(req, status, error) {
+                        alert(req + " " + status + " " + error);
+                    }
+                });
+                //*/
+            });
         };
         //});
+                        
     </script>
 </body>
 

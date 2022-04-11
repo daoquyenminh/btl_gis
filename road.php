@@ -41,7 +41,9 @@
             </td>
             <td>
                 <div id="info"></div>
-               <a href="http://localhost/btl/index2.php">Hiển thị vùng</a>
+                <a href="http://localhost/btl/index.php">Hiển thị vùng </a><br>
+               <a href="http://localhost/btl/road.php">Hiển thị đường phố </a><br>
+               <a href="http://localhost/btl/hospital.php">Hiển thị bệnh viện </a>
             </td>
         </tr>
     </table>
